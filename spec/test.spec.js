@@ -16,23 +16,35 @@ var _ = require('underscore');
 // }
 
 
+function Runner(str) {
+    this.strAr = _.toArray(str);
+    this.charFirst = this.strAr[0].charCodeAt();
+    this.charLast = _.last(this.strAr).charCodeAt();
+    this.charAr = this.generateCharAr();
+    this.compareAr = this.generateCompAr();
+    this.resultChar = this.generateResuChar()
+}
+
+Runner.prototype.generateCharAr = function() {
+    return _.map(this.strAr, function(value) {
+        return value.charCodeAt();
+    });
+}
+
+Runner.prototype.generateCompAr = function() {
+    return _.range(this.charFirst, this.charLast + 1);
+}
+
+Runner.prototype.generateResuChar = function() {
+    return _.difference(this.compareAr, this.charAr).join('');
+}
+
 function fearNotLetter(str) {
     var doRun = new Runner(str);
     if (doRun.resultChar === '') {
         return undefined;
     }
     return String.fromCharCode(doRun.resultChar);
-}
-
-function Runner(str) {
-    this.strAr = _.toArray(str);
-    this.charFirst = this.strAr[0].charCodeAt();
-    this.charLast = _.last(this.strAr).charCodeAt();
-    this.charAr = _.map(this.strAr, function(value) {
-        return value.charCodeAt();
-    });
-    this.compareAr = _.range(this.charFirst, this.charLast + 1);
-    this.resultChar = _.difference(this.compareAr, this.charAr).join('');
 }
 
 
