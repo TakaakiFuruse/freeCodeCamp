@@ -1,9 +1,15 @@
 var _ = require('underscore');
 
 function fearNotLetter(str) {
-    return str;
+    str.split("")
 }
 
+// charAr[]
+// charAr << each charCode
+// char1 = str.split("")[0].charCodeAt()
+// char2 = str.split("")[a.length-1].charCodeAt()
+// [char1..char2] diff chararr
+// return diff result
 
 
 describe('description', function() {
