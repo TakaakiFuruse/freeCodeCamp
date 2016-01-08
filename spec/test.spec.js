@@ -1,58 +1,30 @@
-var _ = require('underscore');
+var _ = require('underscore')
 
-// function fearNotLetter(str) {
-//     var strAr = _.toArray(str);
-//     var charFirst = strAr[0].charCodeAt();
-//     var charLast = _.last(strAr).charCodeAt();
-//     var charAr = _.map(strAr, function(value) {
-//         return value.charCodeAt();
-//     });
-//     var compareAr = _.range(charFirst, charLast + 1);
-//     var resultChar = _.difference(compareAr, charAr).join('');
-//     if (resultChar === '') {
-//         return undefined;
-//     }
-//     return String.fromCharCode(resultChar);
+// function unite(arr) {
+//     var argAr = [];
+//     for (var i = 0; i < arguments.length; i++) {
+//         argAr.push(arguments[i])
+//     };
+//     return _.union(_.flatten(argAr, true))
 // }
 
-
-function Runner(str) {
-    this.strAr = _.toArray(str);
-    this.charFirst = this.strAr[0].charCodeAt();
-    this.charLast = _.last(this.strAr).charCodeAt();
-    this.charAr = this.generateCharAr();
-    this.compareAr = this.generateCompAr();
-    this.resultChar = this.generateResuChar()
-}
-
-Runner.prototype.generateCharAr = function() {
-    return _.map(this.strAr, function(value) {
-        return value.charCodeAt();
-    });
-}
-
-Runner.prototype.generateCompAr = function() {
-    return _.range(this.charFirst, this.charLast + 1);
-}
-
-Runner.prototype.generateResuChar = function() {
-    return _.difference(this.compareAr, this.charAr).join('');
-}
-
-function fearNotLetter(str) {
-    var doRun = new Runner(str);
-    if (doRun.resultChar === '') {
-        return undefined;
-    }
-    return String.fromCharCode(doRun.resultChar);
+function unite(arr) {
+    var argAr = [];
+    for (var i = 0; i < arguments.length; i++) {
+        argAr.push(arguments[i])
+    };
+    return _.union(_.flatten(argAr, true))
 }
 
 
 describe('description', function() {
-    it('description', function() {
-        expect(fearNotLetter('abce')).toEqual('d');
-        expect(fearNotLetter('abcdefghjklmno')).toEqual('i');
-        expect(fearNotLetter('bcd')).toEqual(undefined);
-        expect(fearNotLetter('yz')).toEqual(undefined);
-    });
-});
+    it('1', function() {
+        expect(unite([1, 3, 2], [5, 2, 1, 4], [2, 1])).toEqual([1, 3, 2, 5, 4])
+        expect(unite([1, 3, 2], [1, [5]], [2, [4]])).toEqual([1, 3, 2, [5],
+            [4]
+        ])
+        expect(unite([1, 2, 3], [5, 2, 1])).toEqual([1, 2, 3, 5])
+        expect(unite([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8])).toEqual([1, 2, 3, 5, 4, 6, 7, 8])
+
+    })
+})
