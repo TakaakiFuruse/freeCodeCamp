@@ -2,7 +2,7 @@ var _ = require('underscore');
 
 function sumFibs(num) {
     var fibs = new Fibonaccier(num);
-    return fibs.fibOddsSum
+    console.log(fibs)
 }
 
 function Fibonaccier(num) {
@@ -15,7 +15,7 @@ function Fibonaccier(num) {
 Fibonaccier.prototype.fibCalc = function(num) {
     this.numAr = [0, 1]
     for (var i = 1; i < num; i++) {
-        f = this.numAr[this.numAr.length - 1] + this.numAr[this.numAr.length - 2]
+        f = this.numAr[this.numAr.length - 1] + this.numAr[this.numAr - 2]
         this.numAr.push(f)
     }
 }
@@ -33,10 +33,11 @@ Fibonaccier.prototype.fibOddsSum = function() {
 }
 describe('description', function() {
     it('description', function() {
-            expect(sumFibs(1000)).toEqual(1785)
-            expect(sumFibs(4000000)).toEqual(4613732)
-            expect(sumFibs(4)).toEqual(5)
-            expect(sumFibs(75024)).toEqual(60696)
-            expect(sumFibs(75025)).toEqual(135721)
+        expect(sumFibs(13)).toEqual('99')
+            // expect(sumFibs(1000)).toEqual(1785)
+            // expect(sumFibs(4000000)).toEqual(4613732)
+            // expect(sumFibs(4)).toEqual(5)
+            // expect(sumFibs(75024)).toEqual(60696)
+            // expect(sumFibs(75025)).toEqual(135721)
     })
 })
