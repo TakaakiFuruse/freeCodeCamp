@@ -1,33 +1,15 @@
-var _ = require('underscore');
-
-var htmlCodes = {
-    "&": "& amp;",
-    "<": "& lt;",
-    ">": "& gt;",
-    "\"": "& quot;",
-    "'": "& apos;"
+function spinalCase(str) {
+    str = str.replace(/([a-z])([A-Z])/g, '$1 $2')
+    str = str.replace(/\s|_/g, '-')
+    return str.toLowerCase()
 }
 
-function convert(str) {
-    var strAr = str.split('');
-    for (var i = str.length - 1; i >= 0; i--) {
-        for (var keys in htmlCodes) {
-            if (strAr[i] === keys) {
-                strAr[i] = htmlCodes[keys];
-            }
-        }
-    }
-    return strAr.join('')
-};
 
 describe('description', function() {
     it('1', function() {
-        expect(convert("Dolce & Gabbana")).toEqual('Dolce & ​amp; Gabbana');
-        expect(convert("Hamburgers < Pizza < Tacos")).toEqual("Hamburgers & ​lt; Pizza & ​lt; Tacos");
-        expect(convert("Sixty > twelve")).toEqual("Sixty & ​gt; twelve");
-        expect(convert('Stuff in "quotation marks"')).toEqual("Stuff in & ​quot; quotation marks & ​quot;");
-        expect(convert("Shindler's List")).toEqual("Shindler & ​apos; s List");
-        expect(convert("<>")).toEqual(" & ​lt; & ​gt;");
-        expect(convert("abc")).toEqual("abc");
+        expect(spinalCase("This Is Spinal Tap")).toEqual("this-is-spinal-tap")
+        expect(spinalCase("thisIsSpinalTap")).toEqual("this-is-spinal-tap")
+        expect(spinalCase("The_Andy_Griffith_Show")).toEqual("the-andy-griffith-show")
+        expect(spinalCase("Teletubbies say Eh-oh")).toEqual("teletubbies-say-eh-oh")
     })
 })
