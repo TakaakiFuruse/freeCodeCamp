@@ -8,13 +8,21 @@ function sumFibs(num) {
         );
     }
     fibAr.pop();
-    fibAr = fibAr.filter(function(index) {
-    return index % 2 !== 0;
-});
+    // return _.reduce(fibAr, function(memo, value) {
+    //     if (value % 2 !== 0) {
+    //         return memo + value;
+    //     } else {
+    //         return memo;
+    //     }
+    // }, 0);
+    return fibAr.reduce(function(memo, value) {
+        if (value % 2 !== 0) {
+            return memo + value;
+        } else {
+            return memo;
+        }
+    });
 
-    return _.reduce(fibAr, function(memo, value) {
-        return memo + value;
-    }, 0);
 }
 
 describe('description', function() {
