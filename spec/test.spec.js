@@ -1,30 +1,42 @@
 var _ = require('underscore');
 
-function smallestCommons(arr) {
-    var rangeAr = _.range(arr.sort()[0], _.last(arr.sort()) + 1);
-    var num = 1;
-    while (num > 0) {
-        num++;
-        var resAr = [];
-        for (var i = 0; i < rangeAr.length; i++) {
-            if (num >= rangeAr[i] && num % rangeAr[i] === 0) {
-                resAr.push(i);
+function pairwise(arr, arg) {
+    var resAr = []
+    for (var i = 0; i < arr.length; i++) {
+        for (var j = i + 1; j < arr.length; j++) {
+            if (arr[i] + arr[j] === arg) {
+                resAr.push(arr.indexOf(arr[i]));
+                arr[i] = NaN;
+                resAr.push(arr.indexOf(arr[j]));
+                arr[j] = NaN;
             }
         }
-        if (resAr.length === rangeAr.length) {
-            return num;
-        }
     }
+    return resAr.reduce(function(a, b) {
+        return a + b;
+    }, 0);
 }
 
-describe('1-', function() {
+describe('test - ', function() {
     it('1', function() {
-        expect(smallestCommons([1, 5])).toBe(60);
-    })
+        expect(pairwise([1, 4, 2, 3, 0, 5], 7)).toEqual(11);
+        // body...
+    });
     it('2', function() {
-        expect(smallestCommons([5, 1])).toBe(60);
-    })
+        expect(pairwise([1, 3, 2, 4], 4)).toEqual(1);
+        // body...
+    });
     it('3', function() {
-        expect(smallestCommons([1, 13])).toBe(360360);
-    })
-})
+        expect(pairwise([1, 1, 1], 2)).toEqual(1);
+        // body...
+    });
+    it('4', function() {
+        expect(pairwise([0, 0, 0, 0, 1, 1], 1)).toEqual(10);
+        // body...
+    });
+    it('5', function() {
+        expect(pairwise([], 100)).toEqual(0);
+        // body...
+    });
+
+});
