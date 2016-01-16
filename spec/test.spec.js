@@ -1,42 +1,31 @@
 var _ = require('underscore');
 
-function pairwise(arr, arg) {
-    var resAr = []
-    for (var i = 0; i < arr.length; i++) {
-        for (var j = i + 1; j < arr.length; j++) {
-            if (arr[i] + arr[j] === arg) {
-                resAr.push(arr.indexOf(arr[i]));
-                arr[i] = NaN;
-                resAr.push(arr.indexOf(arr[j]));
-                arr[j] = NaN;
-            }
-        }
-    }
-    return resAr.reduce(function(a, b) {
-        return a + b;
-    }, 0);
+function sym(args) {
+    var argAr = Array.prototype.slice.call(arguments);
+    var resAR = [];
+    resAR.push(
+        _.difference(arguments[0], arguments[1])
+    );
+    resAR.push(
+        _.difference(arguments[1], arguments[0])
+    );
+    return _.flatten(resAR);;
 }
 
 describe('test - ', function() {
     it('1', function() {
-        expect(pairwise([1, 4, 2, 3, 0, 5], 7)).toEqual(11);
-        // body...
+        expect(sym([1, 2, 3], [5, 2, 1, 4])).toEqual([3, 5, 4])
     });
     it('2', function() {
-        expect(pairwise([1, 3, 2, 4], 4)).toEqual(1);
-        // body...
+        expect(sym([1, 2, 5], [2, 3, 5], [3, 4, 5])).toEqual([1, 4, 5])
     });
     it('3', function() {
-        expect(pairwise([1, 1, 1], 2)).toEqual(1);
-        // body...
+        expect(sym([1, 1, 2, 5], [2, 2, 3, 5], [3, 4, 5, 5])).toEqual([1, 4, 5])
     });
     it('4', function() {
-        expect(pairwise([0, 0, 0, 0, 1, 1], 1)).toEqual(10);
-        // body...
+        expect(sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3])).toEqual([7, 4, 6, 2, 3])
     });
     it('5', function() {
-        expect(pairwise([], 100)).toEqual(0);
-        // body...
+        expect(sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1])).toEqual([1, 2, 5, 6, 7, 8, 9])
     });
-
 });
